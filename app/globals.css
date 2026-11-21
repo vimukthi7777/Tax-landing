@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-bg: #f8f9fd;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-accent: #36bddf;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Figma grid: 12 cols, 80px margin, 20px gutter, 1440 frame */
+  --container-page: 1440px;
+  --spacing-gutter: 20px;
+  --spacing-margin: 80px;
+
+  /* NOTE: do not override --breakpoint-lg in px: mixing px with the default rem breakpoints
+     makes Tailwind emit lg rules BEFORE md/sm, so md rules win on desktop. Default lg = 64rem = 1024px. */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Glassmorphism card (used in pricing) */
+.glass {
+  background: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow: 0 10px 40px rgb(15 40 80 / 0.08);
+}
+
+/* Page loader: white sonar rings expanding from behind the logo */
+@keyframes sonar {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.sonar-ring {
+  animation: sonar 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sonar-ring {
+    animation: none;
+    opacity: 0.35;
+  }
 }
