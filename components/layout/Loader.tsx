@@ -15,13 +15,12 @@ declare global {
 
 /**
  * Full-screen page loader on the brand colour: logo in the middle with white sonar rings
- * pulsing behind it, and a 0% → 100% counter. Progress follows the real page load
- * (eases to 90%, then completes when the window `load` event fires). When done it
+ * pulsing behind it. Completion follows the real page load (an internal progress value
+ * eases to 90%, then finishes when the window `load` event fires); no number is shown. When done it
  * slides up and fires `loader:done` so the hero intro can play.
  */
 export function Loader() {
   const root = useRef<HTMLDivElement>(null);
-  const label = useRef<HTMLSpanElement>(null);
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
@@ -63,7 +62,6 @@ export function Loader() {
       const target = loaded && t >= MIN_MS ? 100 : Math.min(ramp, 90);
       shown += (target - shown) * (loaded && t >= MIN_MS ? 0.12 : 0.2);
       if (target === 100 && shown > 99.5) shown = 100;
-      if (label.current) label.current.textContent = `${Math.round(shown)}%`;
       if (shown >= 100) {
         window.setTimeout(finish, 250);
         return;
@@ -106,9 +104,7 @@ export function Loader() {
             <Image src="/img/loader.png" alt="" width={201} height={201} priority className="size-20 sm:size-24" />
           </span>
         </div>
-        <p className="mt-2 text-5xl font-extrabold tabular-nums tracking-tight sm:text-6xl">
-          <span ref={label}>0%</span>
-        </p>
+        <span className="sr-only">Loading…</span>
       </div>
     </div>
   );
