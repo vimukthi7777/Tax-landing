@@ -63,7 +63,7 @@ export function MediaSection() {
                 id={p.id}
                 className={`relative isolate flex min-h-[500px] flex-col overflow-hidden rounded-[24px] shadow-[0_12px_40px_rgb(15_40_80/0.14)] lg:rounded-[32px] ${PANEL} ${i === 0 ? PAD_LEFT : PAD_RIGHT} ${isYt ? "bg-[#f1f5fc]" : "bg-[#f6f7fb]"}`}
               >
-                <Reveal className="relative z-10 pt-10 lg:pt-[clamp(48px,9.4vw,136px)]">
+                <Reveal className="relative z-10 pt-10 lg:pt-[clamp(40px,6.6vw,95px)]">
                   <h2 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-[#0b1b3a] sm:text-4xl lg:text-[clamp(28px,2.96vw,43px)]">
                     {p.title}
                     <br />
